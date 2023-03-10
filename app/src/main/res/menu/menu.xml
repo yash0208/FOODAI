@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/page_1"
+        android:icon="@drawable/dashboard_white_24dp"
+
+        android:iconTint="@color/white"
+        android:title="Home"/>
+    <item
+        android:id="@+id/page_2"
+        android:icon="@drawable/ic_baseline_food_bank_24"
+        android:title="Restro-Cuisines"/>
+    <item
+        android:id="@+id/page_3"
+        android:icon="@drawable/ic_baseline_edit_calendar_24"
+        android:title="Planner"/>
+    <item
+        android:id="@+id/page_4"
+        android:icon="@drawable/account_circle_white_24dp"
+        android:title="Fridge"/>
+    <item
+        android:id="@+id/page_5"
+        android:icon="@drawable/ic_baseline_smart_toy_24"
+        android:title="Buddy"/>
+</menu>
