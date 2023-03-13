@@ -68,6 +68,7 @@
                     android:layout_height="50dp"/>
                 <ImageButton
                     android:layout_width="50dp"
+                    android:onClick="back"
                     android:background="@drawable/tab_back_1"
                     android:id="@+id/bck"
                     android:layout_gravity="left"
@@ -129,6 +130,7 @@
                                 android:layout_width="wrap_content"
                                 android:text="Linda Johansen"
                                 android:id="@+id/author"
+
                                 android:fontFamily="@font/nunito_semibold"
                                 android:textSize="15dp"
                                 android:textColor="#5A5A5A"

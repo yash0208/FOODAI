@@ -1,7 +1,7 @@
 package com.rajaryan.foodai;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -19,25 +19,35 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
-public class CategoryAct extends AppCompatActivity {
+public class CookProfile extends AppCompatActivity {
+    String name,id;
+    TextView pt,rt,nm;
     RecyclerView rec;
-    TextView name1;
+    int count;
+    float rating = 0;
+    int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_category);
-        rec=findViewById(R.id.rec);
-        name1=findViewById(R.id.name);
+        setContentView(R.layout.activity_cook_profile);
         Intent i=getIntent();
-        String name=i.getStringExtra("cat");
-        name1.setText(name);
+        name=i.getStringExtra("Name");
+        pt=findViewById(R.id.pt);
+        id=i.getStringExtra("Id");
+        Log.e("Id",id);
         com.google.firebase.firestore.Query query4 = FirebaseFirestore.getInstance()
-                .collection("Objects").whereGreaterThanOrEqualTo("RecipeCategory",name)
-                .limit(50);
+                .collection("Objects").whereEqualTo("AuthorId",id);
         FirestoreRecyclerOptions<RecipeData> options4 = new FirestoreRecyclerOptions.Builder<RecipeData>()
                 .setQuery(query4, RecipeData.class)
                 .build();
+        rec=findViewById(R.id.rec);
+        rt=findViewById(R.id.rate);
+        nm=findViewById(R.id.nm);
+        nm.setText(name);
+        rec.setLayoutManager(new GridLayoutManager(this,2));
         FirestoreRecyclerAdapter<RecipeData, ChatHolder> adapter3 = new FirestoreRecyclerAdapter<RecipeData, ChatHolder>(options4) {
+            int inc;
+
             @Override
             public void onBindViewHolder(ChatHolder holder, int position, RecipeData model) {
                 String image=model.getImages().replace("c(","");
@@ -47,23 +57,41 @@ public class CategoryAct extends AppCompatActivity {
                     Log.e("e",s);
                 }
                 String link=strArray[0].replace("\"","");
-                holder.setProductName(model.getName(),model.getAuthorName(),link,model.getTotalTime(),model.getRecipeServings(),model.getRecipeId());
+                holder.setProductName(model.getName(),model.getRecipeCategory(),link,model.getTotalTime(),model.getRecipeServings(),model.getRecipeId());
+                inc++;
+                count++;
+                pt.setText(String.valueOf(inc));
+
+                if(model.getAggregatedRating().equals("NA")){
+                    rating=rating+5;
+                }else {
+                    rating=rating+Float.valueOf(model.getAggregatedRating());
+                }
+                float finalr=rating/count;
+                Log.e("Final", String.valueOf(finalr));
+                rt.setText(String.valueOf(finalr));
             }
+
 
             @Override
             public ChatHolder onCreateViewHolder(ViewGroup group, int i) {
                 // Create a new instance of the ViewHolder, in this case we are using a custom
                 // layout called R.layout.message for each item
                 View view = LayoutInflater.from(group.getContext())
-                        .inflate(R.layout.card1, group, false);
+                        .inflate(R.layout.item, group, false);
 
                 return new ChatHolder(view);
             }
         };
-        rec.setLayoutManager(new LinearLayoutManager(CategoryAct.this,LinearLayoutManager.VERTICAL,false));
         rec.setAdapter(adapter3);
         adapter3.startListening();
+
     }
+
+    public void back(View view) {
+        onBackPressed();
+    }
+
     private class ChatHolder extends RecyclerView.ViewHolder {
         private View view;
 
@@ -80,15 +108,20 @@ public class CategoryAct extends AppCompatActivity {
             image.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i=new Intent(CategoryAct.this,Recipe.class);
+                    Intent i=new Intent(getApplicationContext(),Recipe.class);
                     i.putExtra("Id",id);
                     startActivity(i);
 
                 }
             });
+            TextView time1=view.findViewById(R.id.time);
+            TextView serve=view.findViewById(R.id.serve);
+            serve.setText(serves);
+            time=time.replace("PT","");
+            time1.setText(time);
             if(TextUtils.equals(link,"character(0")){
                 Picasso.get()
-                        .load(R.drawable.card_default_back).fit().centerCrop().into(image);
+                        .load(R.drawable.card_default_back).into(image);
                 textView.setText(productName);
             }
             else {
@@ -99,5 +132,4 @@ public class CategoryAct extends AppCompatActivity {
 
         }
     }
-
 }

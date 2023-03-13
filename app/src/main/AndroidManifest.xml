@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FOODAI">
         <activity
+            android:name=".RecipeUpload"
+            android:exported="false" />
+        <activity
+            android:name=".CookProfile"
+            android:exported="false" />
+        <activity
             android:name=".CategoryAct"
             android:exported="false" />
         <activity

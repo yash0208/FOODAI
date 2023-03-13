@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:layout_height="match_parent"
     tools:context=".Profile">
@@ -9,6 +10,54 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
-                    
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="vertical"
+
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Hi, Yash Mehta"
+                    android:textSize="25dp"
+                    android:id="@+id/name"
+                    android:fontFamily="@font/nunito_bold"
+                    android:textColor="@color/white"
+                    android:layout_gravity="start"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="Your profile"
+                    android:textSize="15dp"
+                    android:gravity="start"
+                    android:fontFamily="@font/nunito_semibold"
+                    android:textColor="#717171"
+                    android:layout_gravity="start"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                app:cardCornerRadius="10dp"
+                android:padding="5dp"
+                android:layout_gravity="right|center"
+                android:backgroundTint="#FFC20E"
+                android:background="@drawable/snack"
+                android:layout_height="50dp">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_margin="2dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:id="@+id/profile"
+                        android:layout_height="match_parent"/>
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
     </LinearLayout>
-</FrameLay
+</FrameLayout>

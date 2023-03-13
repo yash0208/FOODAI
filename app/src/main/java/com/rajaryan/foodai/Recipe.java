@@ -61,6 +61,7 @@ public class Recipe extends AppCompatActivity {
     TextView ca,ch,fat,pr,sf,so,su,views,reviews,description,calor;
     boolean rated;
     RatingBar ratingBar;
+    ImageView pic;
     TextView cap,chp,fatp,prp,sfp,sop,sup;
      FirebaseFirestore db = FirebaseFirestore.getInstance();
      DocumentReference noteRef;
@@ -73,6 +74,7 @@ public class Recipe extends AppCompatActivity {
      ImageButton spk;
      RecyclerView tags;
      String[] instruction,ing1,ing2,tag_s;
+     String aut,aut_id;
      CustomAdapter customAdapter;
      RecyclerView lv,ing;
     @Override
@@ -88,6 +90,7 @@ public class Recipe extends AppCompatActivity {
         id=i.getStringExtra("Id");
         ca=findViewById(R.id.chquantity);
         fat=findViewById(R.id.fatquantity);
+        pic=findViewById(R.id.picture);
         pr=findViewById(R.id.ptquantity);
         ch=findViewById(R.id.clquantity);
         sf=findViewById(R.id.sfquantity);
@@ -141,6 +144,13 @@ public class Recipe extends AppCompatActivity {
                             calor.setText(documentSnapshot.getString("Calories"));
                             description.setText(documentSnapshot.getString("Description").replace("Food.com","Foodopedia"));
                             author.setText(documentSnapshot.getString("AuthorName"));
+                            aut=documentSnapshot.getString("AuthorName");
+                            aut_id=documentSnapshot.getString("AuthorId");
+                            String image11=documentSnapshot.getString("Images").replace("c(","");
+                            String image12=image11.replace(")","");
+                            String[] strArray = image12.split(", ");
+                            String link=strArray[0].replace("\"","");
+                            Picasso.get().load(link).fit().centerCrop().into(pic);
                             ct.setText(documentSnapshot.getString("CookTime").replace("PT",""));
                             pt.setText(documentSnapshot.getString("PrepTime").replace("PT",""));
                             sv.setText(documentSnapshot.getString("RecipeServings"));
@@ -195,7 +205,15 @@ public class Recipe extends AppCompatActivity {
                         Log.d("TAG", e.toString());
                     }
                 });
-
+        author.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i= new Intent(getApplicationContext(),CookProfile.class);
+                i.putExtra("Id",aut_id);
+                i.putExtra("Name",aut);
+                startActivity(i);
+            }
+        });
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -329,6 +347,9 @@ public class Recipe extends AppCompatActivity {
                 }
             });
             bottomSheetDialog.show();
+    }
+    public void back(View view) {
+        onBackPressed();
     }
     public class Adapter extends FirebaseRecyclerAdapter<Comment, Adapter.viewholder> {
         String time1;

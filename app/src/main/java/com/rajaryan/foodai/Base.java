@@ -117,8 +117,8 @@ public class Base extends Fragment {
         }
         search_button=view.findViewById(R.id.search_button);
         com.google.firebase.firestore.Query query4 = FirebaseFirestore.getInstance()
-                .collection("Objects")
-                .limit(5);
+                .collection("Objects").whereNotEqualTo("Images","character(0)")
+                .limit(4);
         FirestoreRecyclerOptions<RecipeData> options4 = new FirestoreRecyclerOptions.Builder<RecipeData>()
                 .setQuery(query4, RecipeData.class)
                 .build();
