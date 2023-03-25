@@ -35,6 +35,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Base#newInstance} factory method to
@@ -101,6 +103,13 @@ public class Base extends Fragment {
         databaseReference=FirebaseDatabase.getInstance().getReference("Recipe1");
         search=view.findViewById(R.id.search);
         name=view.findViewById(R.id.name);
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getActivity(),EditProfile.class);
+                startActivity(i);
+            }
+        });
         profile=view.findViewById(R.id.profile);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         if(account !=  null){
@@ -113,12 +122,13 @@ public class Base extends Fragment {
             name.setText("Hi, "+personName);
             Picasso.get()
                     .load(Pic).into(profile);
-
         }
+        String[] arr = {"Weeknight", "Oven", "< 4 Hours","Fruit", "Vegetable", "< 15 Mins", "Easy"};
+        int randIdx = ThreadLocalRandom.current().nextInt(arr.length);
+        String randomElem = arr[randIdx];
         search_button=view.findViewById(R.id.search_button);
         com.google.firebase.firestore.Query query4 = FirebaseFirestore.getInstance()
-                .collection("Objects").whereNotEqualTo("Images","character(0)")
-                .limit(4);
+                .collection("Objects").whereGreaterThanOrEqualTo("Keywords",randomElem).limit(4);
         FirestoreRecyclerOptions<RecipeData> options4 = new FirestoreRecyclerOptions.Builder<RecipeData>()
                 .setQuery(query4, RecipeData.class)
                 .build();

@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:layout_height="match_parent"
+    android:paddingBottom="50dp"
     tools:context=".Base">
     <ScrollView
         android:layout_width="match_parent"

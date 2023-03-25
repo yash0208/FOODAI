@@ -1,14 +1,16 @@
 package com.rajaryan.foodai;
 
 public class Category {
-    String Name,Image;
+    String Name,Image,
+            Ingredient;
 
-    public Category() {
-    }
-
-    public Category(String name, String image) {
+    public Category(String name, String image, String ingredient) {
         Name = name;
         Image = image;
+        Ingredient = ingredient;
+    }
+
+    public Category() {
     }
 
     public String getName() {
@@ -25,5 +27,13 @@ public class Category {
 
     public void setImage(String image) {
         Image = image;
+    }
+
+    public String getIngredient() {
+        return Ingredient;
+    }
+
+    public void setIngredient(String ingredient) {
+        Ingredient = ingredient;
     }
 }

@@ -18,8 +18,4 @@
         android:id="@+id/page_4"
         android:icon="@drawable/account_circle_white_24dp"
         android:title="Fridge"/>
-    <item
-        android:id="@+id/page_5"
-        android:icon="@drawable/ic_baseline_smart_toy_24"
-        android:title="Buddy"/>
 </menu>

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/background"
     android:layout_height="match_parent"
-    tools:context=".Profile">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="50dp"
+    android:background="@color/background"
+    tools:context=".Fridge">
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
         <FrameLayout
             android:layout_width="match_parent"
             android:padding="10dp"
@@ -30,7 +31,7 @@
                     android:layout_height="wrap_content"/>
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Your profile"
+                    android:text="Don't know what to prepare?"
                     android:textSize="15dp"
                     android:gravity="start"
                     android:fontFamily="@font/nunito_semibold"
@@ -58,48 +59,57 @@
                 </androidx.cardview.widget.CardView>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content">
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
                 android:layout_height="wrap_content">
-                <EditText
-                    android:layout_width="130dp"
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
                     android:background="@drawable/search"
-                    android:hint="Weight"
-                    android:fontFamily="@font/nunito_semibold"
-                    android:textColor="#ffffff"
-                    android:textColorHint="#ffffff"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/weighing_scale1"
-                    android:padding="5dp"
-                    android:layout_height="50dp"/>
-                <EditText
-                    android:layout_width="130dp"
                     android:layout_marginLeft="10dp"
-                    android:background="@drawable/search"
-                    android:hint="Height"
-                    android:fontFamily="@font/nunito_semibold"
-                    android:textColor="#ffffff"
-                    android:textColorHint="#ffffff"
-                    android:drawablePadding="5dp"
-                    android:drawableLeft="@drawable/height"
+                    android:layout_marginRight="70dp"
+                    android:id="@+id/search"
+                    android:drawableLeft="@drawable/sala"
+                    android:hint="Add Ingredient"
                     android:padding="5dp"
+                    android:textColor="#E0E1EA"
+                    android:textColorHint="@color/white"
+                    android:drawablePadding="10dp"
+                    android:textColorHighlight="@color/white"
+                    android:fontFamily="@font/nunito_semibold"
                     android:layout_height="50dp"/>
-
-            </LinearLayout>
-            <ImageButton
-                android:layout_width="50dp"
-                android:id="@+id/search_button"
-                android:layout_gravity="right"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/search"
-                android:src="@drawable/baseline_search_24"
-                android:layout_height="50dp"/>
-        </FrameLayout>
+                <ImageButton
+                    android:layout_width="50dp"
+                    android:id="@+id/search_button"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/search"
+                    android:src="@drawable/baseline_add_24"
+                    android:layout_height="50dp"/>
+            </FrameLayout>
+            <ListView
+                android:layout_width="match_parent"
+                android:id="@+id/list"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginTop="2dp"
+                android:id="@+id/rec"
+                android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="50dp"
+                android:id="@+id/rec1"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
     </LinearLayout>
-</FrameLayout>
+
+</ScrollView>
